@@ -1,14 +1,20 @@
-"use client";
+'use client';
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { useState } from "react";
-import { Button } from "./button";
-import { Folder, File, FolderOpen, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
-import type { FileNode } from "@/types";
+} from '@/components/ui/collapsible';
+import { useState } from 'react';
+import { Button } from './button';
+import {
+  Folder,
+  File,
+  FolderOpen,
+  PanelLeftClose,
+  PanelLeftOpen,
+} from 'lucide-react';
+import type { FileNode } from '@/types';
 
 function FileTree({
   node,
@@ -19,10 +25,10 @@ function FileTree({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (node.type === "folder") {
+  if (node.type === 'folder') {
     return (
-      <Collapsible className="ml-4" open={isOpen} onOpenChange={setIsOpen}>
-        <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-md p-1.5 text-sm font-medium hover:bg-muted data-[state=open]:bg-muted">
+      <Collapsible className="ml-2" open={isOpen} onOpenChange={setIsOpen}>
+        <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-md pl-4 p-1.5 text-sm font-medium hover:bg-muted data-[state=open]:bg-muted">
           {isOpen ? (
             <FolderOpen className="h-4 w-4" />
           ) : (
@@ -74,7 +80,7 @@ export function Sidebar({
         }`}
       >
         {!isSidebarCollapsed && (
-          <h2 className="text-lg font-semibold">Files</h2>
+          <h2 className="text-lg font-semibold pl-2">Files</h2>
         )}
         <Button variant="ghost" size="icon" onClick={toggleSidebar}>
           {isSidebarCollapsed ? (

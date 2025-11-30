@@ -1,36 +1,30 @@
-'use client'
+'use client';
 
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from '@/components/ui/resizable'
-import { Sidebar } from '@/components/ui/sidebar'
-import { useState, useRef } from 'react'
-import LogViewer from './LogViewer'
-import type { FileNode } from '@/types'
-import type { ImperativePanelHandle } from 'react-resizable-panels'
-import { Button } from './ui/button'
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+} from '@/components/ui/resizable';
+import { Sidebar } from '@/components/ui/sidebar';
+import { useState, useRef } from 'react';
+import LogViewer from './LogViewer';
+import type { FileNode } from '@/types';
+import type { ImperativePanelHandle } from 'react-resizable-panels';
 
-export default function LogConsole({
-  fileTree,
-}: {
-  fileTree: FileNode[]
-}) {
-  const [selectedFile, setSelectedFile] = useState<string | null>(null)
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
-  const panelRef = useRef<ImperativePanelHandle>(null)
+export default function LogConsole({ fileTree }: { fileTree: FileNode[] }) {
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const panelRef = useRef<ImperativePanelHandle>(null);
 
   const toggleSidebar = () => {
     if (panelRef.current) {
       if (isSidebarCollapsed) {
-        panelRef.current.expand()
+        panelRef.current.expand();
       } else {
-        panelRef.current.collapse()
+        panelRef.current.collapse();
       }
     }
-  }
+  };
 
   return (
     <ResizablePanelGroup direction="horizontal" className="min-h-screen">
@@ -48,7 +42,7 @@ export default function LogConsole({
           isSidebarCollapsed={isSidebarCollapsed}
           toggleSidebar={toggleSidebar}
           onFileSelect={(path) => {
-            setSelectedFile(path)
+            setSelectedFile(path);
           }}
         />
       </ResizablePanel>
@@ -57,5 +51,5 @@ export default function LogConsole({
         <LogViewer selectedFile={selectedFile} />
       </ResizablePanel>
     </ResizablePanelGroup>
-  )
+  );
 }
