@@ -1,6 +1,7 @@
-import { groupLogLines } from '../../lib/log-utils'; // Corrected import path
 import * as fs from 'fs';
 import * as path from 'path';
+
+import { groupLogLines } from '../../lib/log-utils'; // Corrected import path
 
 async function runTest() {
   const logFilePath = path.join(process.cwd(), 'public/logs/java/application.log');
@@ -15,7 +16,7 @@ async function runTest() {
   console.log(JSON.stringify(groupedLogs, null, 2));
 
   // Test the specific multi-line error log
-  const multiLineErrorIndex = logStrings.findIndex(line => line.includes("ORA-00942"));
+  const multiLineErrorIndex = logStrings.findIndex(line => line.includes('ORA-00942'));
   if (multiLineErrorIndex !== -1) {
     // Get line before, error, and next 3 lines, ensuring not to go out of bounds
     const startIndex = Math.max(0, multiLineErrorIndex - 1);
