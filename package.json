@@ -1,5 +1,5 @@
 {
-  "name": "log-console",
+  "name": "@071yoon/log-console-core",
   "version": "0.1.0",
   "private": false,
   "main": "./dist/index.js",
@@ -8,6 +8,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "next dev example",
     "build": "tsup",
