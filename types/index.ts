@@ -4,3 +4,13 @@ export type FileNode = {
   type: 'file' | 'folder'
   children?: FileNode[]
 }
+
+export interface GroupedLogLine {
+  mainLine: string;
+  subLines: string[];
+  timestamp?: string;
+  thread?: string;
+  level?: string;
+  logger?: string;
+  message?: string;
+}

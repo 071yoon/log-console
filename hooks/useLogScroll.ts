@@ -1,43 +1,38 @@
-import { useState, useRef, useEffect } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { GroupedLogLine } from '@/types';
 
-export function useLogScroll(logs: string[]) {
-  const [isAtBottom, setIsAtBottom] = useState(true)
-  const scrollViewportRef = useRef<HTMLDivElement>(null)
+export function useLogScroll(logs: GroupedLogLine[]) {
+  const [isAtBottom, setIsAtBottom] = useState(true);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     if (scrollViewportRef.current) {
       scrollViewportRef.current.scrollTo({
-        top: scrollViewportRef.current.scrollHeight,
         behavior: 'smooth',
-      })
-      setIsAtBottom(true)
+        top: scrollViewportRef.current.scrollHeight,
+      });
+      setIsAtBottom(true);
     }
-  }
+  }, []);
 
-  const handleScroll = () => {
-    const viewport = scrollViewportRef.current
+  const handleScroll = useCallback(() => {
+    const viewport = scrollViewportRef.current;
     if (viewport) {
       const isScrolledToBottom =
-        viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight < 1
-      setIsAtBottom(isScrolledToBottom)
-    }
-  }
+        viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight < 1;
+      setIsAtBottom(isScrolledToBottom);
 
-  // Effect for auto-scrolling
+      setIsAtTop(viewport.scrollTop === 0);
+    }
+  }, []);
+
+  // Effect for auto-scrolling when new logs arrive and user is at bottom
   useEffect(() => {
     if (isAtBottom && scrollViewportRef.current) {
-      // Use instant scroll for tailing updates, not smooth
-      scrollViewportRef.current.scrollTop =
-        scrollViewportRef.current.scrollHeight
+      scrollViewportRef.current.scrollTop = scrollViewportRef.current.scrollHeight;
     }
-  }, [logs, isAtBottom])
+  }, [logs, isAtBottom]); // Rerun when logs change or isAtBottom changes
 
-  // Effect to reset scroll position when new logs are loaded (e.g. new file)
-  useEffect(() => {
-    if (logs.length > 0) {
-      setIsAtBottom(true)
-    }
-  }, [logs])
-
-  return { scrollViewportRef, handleScroll, scrollToBottom, isAtBottom }
+  return { scrollViewportRef, handleScroll, scrollToBottom, isAtBottom, isAtTop };
 }

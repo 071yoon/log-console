@@ -1,7 +1,8 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { ArrowDown } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
 
 interface GoToBottomButtonProps {
   isVisible: boolean

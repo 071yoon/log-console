@@ -1,15 +1,17 @@
 'use client';
 
+import { useRef, useState } from 'react';
+import type { ImperativePanelHandle } from 'react-resizable-panels';
+
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
 import { Sidebar } from '@/components/ui/sidebar';
-import { useState, useRef } from 'react';
-import LogViewer from './LogViewer';
 import type { FileNode } from '@/types';
-import type { ImperativePanelHandle } from 'react-resizable-panels';
+
+import LogViewer from './LogViewer';
 
 export default function LogConsole({ fileTree }: { fileTree: FileNode[] }) {
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
@@ -44,6 +46,7 @@ export default function LogConsole({ fileTree }: { fileTree: FileNode[] }) {
           onFileSelect={(path) => {
             setSelectedFile(path);
           }}
+          selectedFile={selectedFile}
         />
       </ResizablePanel>
       <ResizableHandle withHandle />
